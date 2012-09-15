@@ -16,7 +16,7 @@ def form_query(request, query_id):
     query = Query.objects.get(id=query_id)
     form = QueryForm(initial={'text':query.text}, query=query)
     context = {
-        'title': ('Run Query %s') % force_unicode(query.name),
+        'title': ('Run Query %s on %s') % (force_unicode(query.name), query.database),
         'form': form,
         'object_id': query_id,
         'original': query,
@@ -54,4 +54,5 @@ def run_query(request, query_id):
             'template' : '#message-response',
             'message' : 'No data'
         }
+    cursor.close()
     return HttpResponse(simplejson.dumps(response), mimetype='application/json')

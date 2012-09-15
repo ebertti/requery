@@ -16,7 +16,7 @@ django.jQuery(function(){
         var loading_bar = django.jQuery('#loading_bar');
         var run_button = django.jQuery('#id_run');
         var result = django.jQuery('#result');
-
+        result.html('WAIT');
         run_button.attr("disabled", true);
         loading_bar.fadeIn('fast');
         django.jQuery.ajax({
@@ -91,20 +91,7 @@ django.jQuery(function(){
 {% endif %}
 
 {% block field_sets %}
-
     <div>
-        {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-        {% if form.errors %}
-            <p class="errornote">
-                {% blocktrans count form.errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
-            </p>
-            {% for error in form.errors %}
-                {{ error }}
-            {% endfor %}
-        {% endif %}
-
         <fieldset class="module aligned ">
             {% for field in form.visible_fields %}
                 <div class="form-row{% if field.errors %} errors{% endif %}">
@@ -183,6 +170,5 @@ django.jQuery(function(){
         </tbody>
     </table>
 </script>
-
 
 {% endblock %}

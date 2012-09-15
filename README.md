@@ -6,14 +6,14 @@ Simple way to store and use querys in database for use of DBA's
 Installation
 ------------
 
-Download and put ``requery`` on your ``PYTHONPATH``
+1. Download and put ``requery`` on your ``PYTHONPATH``
 
-2. Add redis_dashboard to your ``INSTALLED_APPS`` setting::
+2. Add ``requery``` to your ``INSTALLED_APPS`` in ``settings.py`` ::
 
-       INSTALLED_APPS = (
-           # ...
-           'requery',
-       )
+        INSTALLED_APPS = (
+            # ...
+            'requery',
+        )
 
 3. Run ``python manage.py syncdb``
 

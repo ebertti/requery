@@ -8,7 +8,7 @@ Installation
 
 1. Download and put ``requery`` on your ``PYTHONPATH``
 
-2. Add ``requery``` to your ``INSTALLED_APPS`` in ``settings.py`` ::
+2. Add ``requery`` to your ``INSTALLED_APPS`` in ``settings.py`` ::
 
         INSTALLED_APPS = (
             # ...

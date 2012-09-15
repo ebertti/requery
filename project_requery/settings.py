@@ -112,7 +112,7 @@ ROOT_URLCONF = 'project_requery.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'project_requery.wsgi.application'
 
-TEMPLATE_DIRS = ('/home/ezequiel/PycharmProjects/project_requery/templates',)
+TEMPLATE_DIRS = ()
 
 INSTALLED_APPS = (
     'django.contrib.auth',

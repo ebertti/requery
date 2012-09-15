@@ -1,6 +1,7 @@
 # coding=utf-8
 # Create your views here.
-from django.core import serializers
+from django.contrib.admin.models import LogEntry
+from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -10,13 +11,12 @@ from requery.forms import QueryForm
 from requery.models import Query
 from django.db import connections
 from django.utils import simplejson
-import time
 
 def form_query(request, query_id):
     query = Query.objects.get(id=query_id)
     form = QueryForm(initial={'text':query.text}, query=query)
     context = {
-        'title': ('Run Query %s on %s') % (force_unicode(query.name), query.database),
+        'title': 'Run Query %s on database %s' % (force_unicode(query.name), query.database),
         'form': form,
         'object_id': query_id,
         'original': query,
@@ -55,4 +55,13 @@ def run_query(request, query_id):
             'message' : 'No data'
         }
     cursor.close()
+    LogEntry(user=request.user,
+             content_type=ContentType.objects.get_for_model(query),
+             object_id=query.id,
+             object_repr=force_unicode(query),
+             change_message="run with %s" % ', '.join(['%s:%s' % (key, value)
+                                             for key, value in request.POST.items()
+                                             if key != 'csrfmiddlewaretoken']),
+             action_flag=2 #change
+    ).save()
     return HttpResponse(simplejson.dumps(response), mimetype='application/json')

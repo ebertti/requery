@@ -1,5 +1,5 @@
 requery
-===========
+=======
 
 Simple way to store and use querys in database for use of DBA's
 

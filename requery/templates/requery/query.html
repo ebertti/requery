@@ -8,7 +8,47 @@
 <script type="text/javascript" src="{{ jsi18nurl|default:"../../../jsi18n/" }}"></script>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js"></script>
 {{ media }}
+{% include 'requery/include_ace.html' %}
+<script type="text/javascript">
+django.jQuery(function(){
+    editor.setReadOnly(true);
+    django.jQuery('#id_run').click(function(){
+        var loading_bar = django.jQuery('#loading_bar');
+        var run_button = django.jQuery('#id_run');
+        var result = django.jQuery('#result');
+
+        run_button.attr("disabled", true);
+        loading_bar.fadeIn('fast');
+        django.jQuery.ajax({
+            type : 'POST',
+            url : "{% url 'admin:requery_query_run' original.id %}",
+            dataType : 'json',
+            data : django.jQuery("#run_form").serialize(),
+            success : function(data){
+                var template = _.template(django.jQuery(data.template).html());
+                result.html(template(data));
+                run_button.attr("disabled", false);
+                loading_bar.fadeOut('slow');
+            },
+            error : function(data){
+                var template = _.template(django.jQuery('#message-response').html());
+                result.html(template({message:'error 500'}));
+                run_button.attr("disabled", false);
+                loading_bar.fadeOut('slow');
+            }
+        });
+        return false;
+    });
+});
+</script>
+<style type="text/css">
+    #syntax_text {
+        width: 100%;
+        height: 100px;
+    }
+</style>
 {% endblock %}
+
 
 {% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
 
@@ -21,8 +61,9 @@
 <div class="breadcrumbs">
 <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
 &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ app_label|capfirst|escape }}</a>
-&rsaquo; {% if has_change_permission %}<a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %}
-&rsaquo; {% if add %}{% trans 'Add' %} {{ opts.verbose_name }}{% else %}{{ original|truncatewords:"18" }}{% endif %}
+&rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+&rsaquo; <a href="{% url opts|admin_urlname:'change' original.id %}">{{ original|capfirst }}</a>
+&rsaquo; Run
 </div>
 {% endblock %}
 {% endif %}
@@ -38,7 +79,7 @@
   </ul>
 {% endif %}{% endif %}
 {% endblock %}
-<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% csrf_token %}{% block form_top %}{% endblock %}
+<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="run_form">{% csrf_token %}{% block form_top %}{% endblock %}
 <div>
 {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
 {% if save_on_top %}{% block submit_buttons_top %}{% submit_row %}{% endblock %}{% endif %}
@@ -85,6 +126,11 @@
                     </div>
                 </div>
             {% endfor %}
+            <div class="form-row">
+                <div>
+                    <textarea id='id_text'>{{ original.text }}</textarea>
+                </div>
+            </div>
         </fieldset>
     </div>
 
@@ -92,7 +138,8 @@
 
 {% block submit_buttons_bottom %}
     <div class="submit-row">
-        <input type="submit" value="Run" class="default" name="run">
+        <img id="loading_bar" style="display:none" src="{{ STATIC_URL }}requery/ajax-loader.gif">
+        <input id="id_run" type="submit" value="Run" class="default" name="run">
     </div>
 {% endblock %}
 
@@ -102,4 +149,40 @@
 
 </div>
 </form></div>
+<div id='result'>
+
+</div>
+
+<script type="text/template" id="message-response">
+    <div class="error_list">
+        <div class="text"><%= message %></div>
+        <div class="clear"></div>
+    </div>
+</script>
+
+<script type="text/template" id="table-response">
+    <table id="result_list">
+        <thead>
+        <tr>
+            <% _.each(columns, function(column) { %>
+            <th scope="col">
+                <div class="text"><%= column %></div>
+                <div class="clear"></div>
+            </th>
+            <% }); %>
+        </tr>
+        </thead>
+        <tbody>
+        <% _.each(lines, function(line) { %>
+        <tr class="row1">
+            <% _.each(line, function(tup) { %>
+            <td><%= tup %></td>
+            <% }); %>
+        </tr>
+        <% }); %>
+        </tbody>
+    </table>
+</script>
+
+
 {% endblock %}

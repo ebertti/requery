@@ -24,6 +24,10 @@ class QueryAdmin(admin.ModelAdmin):
                 r'(?P<query_id>\d+)/running/',
                 self.admin_site.admin_view(views.form_query),
                 name='requery_query_form',
+            ),url(
+                r'(?P<query_id>\d+)/run/',
+                self.admin_site.admin_view(views.run_query),
+                name='requery_query_run',
             ),
         )
         return my_urls + urls

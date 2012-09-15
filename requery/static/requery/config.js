@@ -3,6 +3,7 @@ var re_params = /:([a-zA-Z0-9_]+)/g;
 
 function show_params(){
     var params = [];
+    django.jQuery('#id_text').html(editor.getValue());
     while(find_param = re_params.exec(editor.getValue())){
         for(var i = 0; i < params.length; i++){
             if(find_param[1] == params[i]){

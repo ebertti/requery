@@ -28,7 +28,7 @@ feedback.
 Authors
 -------
 The requery was original created by Ezequiel Bertti <ebertti@gmail.com>
-and João Leite(http://github.com/joaoleite) <joaoleite@gmail.com> in September 2012.
+and [João Leite](http://github.com/joaoleite) <joaoleite@gmail.com> in September 2012.
 
 The following is a list of much appreciated contributors:
 

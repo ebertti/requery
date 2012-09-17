@@ -25,8 +25,14 @@ welcome and I encourage you to use the [Issues
 list](http://github.com/ebertti/requery/issues) on Github to provide that
 feedback.
 
-Feel free to fork this repo and to commit your additions. For a list of all
-contributors, please see the [AUTHORS](AUTHORS) file.
+Authors
+-------
+The requery was original created by Ezequiel Bertti <ebertti@gmail.com>
+and João Leite(http://github.com/joaoleite) <joaoleite@gmail.com> in September 2012.
+
+The following is a list of much appreciated contributors:
+
+BE THE FIRST!!!
 
 
 This file was created by PyCharm 2.6.1 for binding GitHub repository

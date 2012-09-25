@@ -1,5 +1,6 @@
 # coding=utf-8
 # Create your views here.
+from django.conf import settings
 from django.contrib.admin.models import LogEntry
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponse
@@ -20,9 +21,9 @@ def form_query(request, query_id):
         'form': form,
         'object_id': query_id,
         'original': query,
-        'media': safe("""<script type="text/javascript" src="/static/admin/js/core.js"></script>
-                    <script type="text/javascript" src="/static/admin/js/jquery.js"></script>
-                    <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>"""),
+        'media': safe("""<script type="text/javascript" src="{0}admin/js/core.js"></script>
+                    <script type="text/javascript" src="{0}admin/js/jquery.js"></script>
+                    <script type="text/javascript" src="{0}admin/js/jquery.init.js"></script>""".format(settings.STATIC_URL)),
         'is_popup': "_popup" in request.REQUEST,
         'app_label': query._meta.app_label,
         'opts': query._meta,

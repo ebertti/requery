@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.conf import settings
 import re
+from requery.local_settings import SQL_STATEMENTS_NOT_ALLOWED
 
 PATTERN = re.compile(":(?P<var_name>[a-zA-Z0-9_]+)")
 CHOICES_DATABASE = [(key, key) for key in settings.DATABASES.keys()]
@@ -32,3 +33,10 @@ class Query(models.Model):
             prepared = prepared.replace(':%s' % param, '%s')
 
         return prepared
+
+    def is_allow(self):
+        for statement in SQL_STATEMENTS_NOT_ALLOWED:
+            if re.match('\s*(?i)' + statement + '(?-i)\s', self.text):
+                return False
+
+        return True

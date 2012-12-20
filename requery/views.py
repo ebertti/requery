@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.contrib.admin.models import LogEntry
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.defaultfilters import safe
@@ -33,36 +33,39 @@ def form_query(request, query_id):
 
 def run_query(request, query_id):
     query = Query.objects.get(id=query_id)
-    text = query.prepare_text()
-    params = []
-    for param in query.dicovery_params():
-        params.append(request.POST[param])
+    if query.is_allow():
+        text = query.prepare_text()
+        params = []
+        for param in query.dicovery_params():
+            params.append(request.POST[param])
 
-    cursor = connections[query.database].cursor()
-    cursor.execute(text, params)
-    lines = []
-    for line in cursor.fetchall():
-        lines.append([unicode(tup) for tup in line])
+        cursor = connections[query.database].cursor()
+        cursor.execute(text, params)
+        lines = []
+        for line in cursor.fetchall():
+            lines.append([unicode(tup) for tup in line])
 
-    if lines :
-        response = {
-            'template' : '#table-response',
-            'columns' : [col[0] for col in cursor.description],
-            'lines' : lines
-        }
-    else:
-        response = {
-            'template' : '#message-response',
-            'message' : 'No data'
-        }
-    cursor.close()
-    LogEntry(user=request.user,
-             content_type=ContentType.objects.get_for_model(query),
-             object_id=query.id,
-             object_repr=force_unicode(query),
-             change_message="run with %s" % ', '.join(['%s:%s' % (key, value)
-                                             for key, value in request.POST.items()
-                                             if key != 'csrfmiddlewaretoken']),
-             action_flag=2 #change
-    ).save()
-    return HttpResponse(simplejson.dumps(response), mimetype='application/json')
+        if lines :
+            response = {
+                'template' : '#table-response',
+                'columns' : [col[0] for col in cursor.description],
+                'lines' : lines
+            }
+        else:
+            response = {
+                'template' : '#message-response',
+                'message' : 'No data'
+            }
+        cursor.close()
+        LogEntry(user=request.user,
+                 content_type=ContentType.objects.get_for_model(query),
+                 object_id=query.id,
+                 object_repr=force_unicode(query),
+                 change_message="run with %s" % ', '.join(['%s:%s' % (key, value)
+                                                 for key, value in request.POST.items()
+                                                 if key != 'csrfmiddlewaretoken']),
+                 action_flag=2 #change
+        ).save()
+        return HttpResponse(simplejson.dumps(response), mimetype='application/json')
+
+    return HttpResponseForbidden()

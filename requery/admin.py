@@ -33,7 +33,9 @@ class QueryAdmin(admin.ModelAdmin):
         return my_urls + urls
 
     def run(self, query):
-        return "<a href=%s>Run</a>" % reverse('admin:requery_query_form', args=(query.id,))
+        if query.is_allow():
+            return "<a href=%s>Run</a>" % reverse('admin:requery_query_form', args=(query.id,))
+        return "Can't run"
     run.short_description = "Run"
     run.allow_tags = True
 

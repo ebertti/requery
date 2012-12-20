@@ -36,7 +36,7 @@ class Query(models.Model):
 
     def is_allow(self):
         for statement in SQL_STATEMENTS_NOT_ALLOWED:
-            if re.match('\s*(?i)' + statement + '(?-i)\s', self.text):
+            if re.match('\s*' + statement + '\s', self.text, re.IGNORECASE):
                 return False
 
         return True

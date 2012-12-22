@@ -38,5 +38,4 @@ class Query(models.Model):
         for statement in SQL_STATEMENTS_NOT_ALLOWED:
             if re.match('\s*' + statement + '\s', self.text, re.IGNORECASE):
                 return False
-
         return True

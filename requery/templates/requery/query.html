@@ -122,7 +122,7 @@ django.jQuery(function(){
     </div>
 
 {% endblock %}
-{% if query.is_allow %}
+{% if original.is_allow %}
     {% block submit_buttons_bottom %}
         <div class="submit-row">
             <img id="loading_bar" style="display:none" src="{{ STATIC_URL }}requery/ajax-loader.gif">

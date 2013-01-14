@@ -7,4 +7,5 @@ setup(name='Requery',
     author='Ezequiel Bertti',
     author_email='ebertti@gmail.com',
     packages=['project_requery', 'requery'],
+    install_requires=['Pygments==1.5'],
     )

@@ -32,7 +32,9 @@ and [João Leite](http://github.com/joaoleite) <joaoleite@gmail.com> in Septembe
 
 The following is a list of much appreciated contributors:
 
-BE THE FIRST!!!
+Victor Novais - @VictorNovais
+Cesar Frias - @cesarFrias
+João Leite - @joaoleite
 
 
 This file was created by PyCharm 2.6.1 for binding GitHub repository

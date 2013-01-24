@@ -7,7 +7,7 @@ packages, package_data = setuplib.find_packages('requery')
 
 setup(
     name='requery',
-    version='0.2.1',
+    version='0.2.2',
     url='http://github.com/ebertti/requery/',
     author='ebertti',
     author_email='ebertti@gmail.com',

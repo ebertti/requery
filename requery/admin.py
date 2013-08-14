@@ -18,6 +18,7 @@ class QueryAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'database', 'name', 'short_text', 'count_params', 'run')
     list_filter = ('database',)
+    search_fields = ('name',)
 
     if local_settings.SQL_STATEMENTS_NOT_ALLOWED:
         list_display += ('allow',)

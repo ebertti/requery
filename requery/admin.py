@@ -10,6 +10,8 @@ class QueryAdmin(admin.ModelAdmin):
     list_display = ('id', 'database', 'name', 'short_text', 'count_params', 'run')
     list_filter = ('database',)
 
+    search_fields = ('name',)
+
     def short_text(self, query):
         return query.text[:50]
 

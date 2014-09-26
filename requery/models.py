@@ -8,14 +8,11 @@ from requery.local_settings import SQL_STATEMENTS_NOT_ALLOWED
 PATTERN = re.compile(":(?P<var_name>[a-zA-Z0-9_]+)")
 CHOICES_DATABASE = [(key, key) for key in settings.DATABASES.keys()]
 
-# Create your models here.
+
 class Query(models.Model):
     name = models.CharField(max_length=55)
     database = models.CharField(max_length=30, default='default', choices=CHOICES_DATABASE)
     text = models.TextField()
-
-    class Meta:
-        app_label = 'requery'
 
     def __unicode__(self):
         return self.name

@@ -2,6 +2,7 @@
 from django import forms
 from django.forms.util import ErrorList
 
+
 class QueryForm(forms.Form):
     def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None, initial=None, error_class=ErrorList,
                  label_suffix=':', empty_permitted=False, query=None):

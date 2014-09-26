@@ -6,7 +6,7 @@ Simple way to store and use querys in database for use of DBA's
 Installation
 ------------
 
-1. Download and put ``requery`` on your ``PYTHONPATH``
+1. ``pip install requery``
 
 2. Add ``requery`` to your ``INSTALLED_APPS`` in ``settings.py`` ::
 
@@ -15,7 +15,7 @@ Installation
             'requery',
         )
 
-3. Run ``python manage.py syncdb``
+3. Run ``python manage.py migrate``
 
 
 Please help out

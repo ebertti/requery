@@ -68,6 +68,6 @@ def run_query(request, query_id):
                                                  if key != 'csrfmiddlewaretoken']),
                  action_flag=2 #change
         ).save()
-        return HttpResponse(json.dumps(response), mimetype='application/json')
+        return HttpResponse(json.dumps(response), content_type="application/json")
 
     return HttpResponseForbidden()

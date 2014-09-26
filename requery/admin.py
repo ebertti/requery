@@ -1,4 +1,5 @@
 # coding=utf-8
+from django.conf.urls import url
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from requery import views
@@ -14,11 +15,13 @@ try:
 except ImportError as e:
     pygments = False
 
+
 class QueryAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'database', 'name', 'short_text', 'count_params', 'run')
     list_filter = ('database',)
     search_fields = ('name',)
+    change_form_template = 'admin/requery/change_form_requery.html'
 
     if local_settings.SQL_STATEMENTS_NOT_ALLOWED:
         list_display += ('allow',)
@@ -38,9 +41,9 @@ class QueryAdmin(admin.ModelAdmin):
     allow.boolean = True
 
     def get_urls(self):
-        from django.conf.urls.defaults import patterns, url
+
         urls = super(QueryAdmin, self).get_urls()
-        my_urls = patterns('',
+        my_urls = [
             url(
                 r'(?P<query_id>\d+)/running/',
                 self.admin_site.admin_view(views.form_query),
@@ -50,7 +53,7 @@ class QueryAdmin(admin.ModelAdmin):
                 self.admin_site.admin_view(views.run_query),
                 name='requery_query_run',
             ),
-        )
+        ]
         return my_urls + urls
 
     def run(self, query):

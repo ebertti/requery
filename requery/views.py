@@ -1,5 +1,6 @@
 # coding=utf-8
 # Create your views here.
+import json
 from django.conf import settings
 from django.contrib.admin.models import LogEntry
 from django.contrib.contenttypes.models import ContentType
@@ -11,7 +12,7 @@ from django.utils.encoding import force_unicode
 from requery.forms import QueryForm
 from requery.models import Query
 from django.db import connections
-from django.utils import simplejson
+
 
 def form_query(request, query_id):
     query = Query.objects.get(id=query_id)
@@ -31,6 +32,7 @@ def form_query(request, query_id):
         }
     return render_to_response('requery/query.html', context, context_instance=RequestContext(request))
 
+
 def run_query(request, query_id):
     query = Query.objects.get(id=query_id)
     if query.is_allow():
@@ -47,9 +49,9 @@ def run_query(request, query_id):
 
         if lines :
             response = {
-                'template' : '#table-response',
-                'columns' : [col[0] for col in cursor.description],
-                'lines' : lines
+                'template': '#table-response',
+                'columns': [col[0] for col in cursor.description],
+                'lines': lines
             }
         else:
             response = {
@@ -66,6 +68,6 @@ def run_query(request, query_id):
                                                  if key != 'csrfmiddlewaretoken']),
                  action_flag=2 #change
         ).save()
-        return HttpResponse(simplejson.dumps(response), mimetype='application/json')
+        return HttpResponse(json.dumps(response), content_type="application/json")
 
     return HttpResponseForbidden()

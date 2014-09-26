@@ -1,13 +1,10 @@
 from django.conf.urls import patterns, include, url
-
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
-admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'', include(admin.site.urls)),
-)
+    # Examples:
+    # url(r'^$', 'teste.views.home', name='home'),
+    # url(r'^blog/', include('blog.urls')),
 
-urlpatterns += staticfiles_urlpatterns()
+    url(r'^admin/', include(admin.site.urls)),
+)

@@ -1,4 +1,4 @@
-# *-* coding:utf-8 *-*
+# coding=utf-8
 from django.conf import settings
 
 # Define here statements that are not allowed in the querys you will run.

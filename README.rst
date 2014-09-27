@@ -1,7 +1,7 @@
 requery
 =======
 
-Simple way to store and use querys in database for use of DBA's in Django Admin
+Simple way to store and use queries in database for use of DBA in Django Admin
 
 Installation
 ------------
@@ -41,9 +41,7 @@ Fill the form with your parameters and click in **Run** to see the results
 
 Please help us
 --------------
-This project is still under development. Feedback and suggestions are very
-welcome and I encourage you to use the `Issues list <http://github.com/ebertti/requery/issues>`_ on Github to provide that
-feedback.
+This project is still under development. Feedback and suggestions are very welcome and I encourage you to use the `Issues list <http://github.com/ebertti/requery/issues>`_ on Github to provide that feedback.
 
 Authors
 -------

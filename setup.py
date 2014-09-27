@@ -7,7 +7,7 @@ reqs = [str(ir.req) for ir in install_reqs]
 
 setup(
     name='requery',
-    version='0.3.1',
+    version='0.3.2',
     url='http://github.com/ebertti/requery/',
     author='Ezequiel Bertti',
     author_email='ebertti@gmail.com',

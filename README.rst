@@ -1,7 +1,7 @@
 requery
 =======
 
-Simple way to store and use querys in database for use of DBA's
+Simple way to store and use querys in database for use of DBA's in Django Admin
 
 Installation
 ------------
@@ -17,24 +17,34 @@ Installation
 
 3. Run ``python manage.py migrate``
 
+Screenshot
+----------
 
-Please help out
----------------
+1) Create and edit query
+
+You can use ``:param_name`` to use to run your queries later.
+
+.. image:: https://raw.githubusercontent.com/ebertti/requery/master/screenshot/change_form.png
+
+2) Listing your queries stored in Django Admin
+
+You can choose a query to run, just click in **Run**
+
+.. image:: https://raw.githubusercontent.com/ebertti/requery/master/screenshot/change_list.png
+
+3) Running and show result
+
+Fill the form with your parameters and click in **Run** to see the results
+
+.. image:: https://raw.githubusercontent.com/ebertti/requery/master/screenshot/running.png
+
+
+Please help us
+--------------
 This project is still under development. Feedback and suggestions are very
-welcome and I encourage you to use the [Issues
-list](http://github.com/ebertti/requery/issues) on Github to provide that
+welcome and I encourage you to use the `Issues list <http://github.com/ebertti/requery/issues>`_ on Github to provide that
 feedback.
 
 Authors
 -------
-The requery was original created by Ezequiel Bertti <ebertti@gmail.com>
-and [João Leite](http://github.com/joaoleite) <joaoleite@gmail.com> in September 2012.
-
-The following is a list of much appreciated contributors:
-
-Victor Novais - @VictorNovais
-Cesar Frias - @cesarFrias
-João Leite - @joaoleite
-
-
-This file was created by PyCharm 2.6.1 for binding GitHub repository
+The requery was original created by Ezequiel Bertti `@ebertti <https://github.com/ebertti>`_ and João Leite `@joaoleite <https://github.com/joaoleite>`_ in September 2012.

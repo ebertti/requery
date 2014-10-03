@@ -10,6 +10,8 @@ Installation
 
 2. Add ``requery`` to your ``INSTALLED_APPS`` in ``settings.py`` ::
 
+.. code-block:: python
+
         INSTALLED_APPS = (
             # ...
             'requery',

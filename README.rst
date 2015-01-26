@@ -3,6 +3,7 @@ requery
 
 Simple way to store and use queries in database for use of DBA in Django Admin
 
+.. image:: https://d2weczhvl823v0.cloudfront.net/ebertti/requery/trend.png
 .. image:: https://pypip.in/v/requery/badge.png
 .. image:: https://pypip.in/d/requery/badge.png
 

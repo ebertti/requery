@@ -18,7 +18,7 @@ from requery.models import Query
 from django.db import connections
 
 # Python 2/3 compatibility
-if sys.version < '3':
+if sys.version_info[0] < 3:
     text_type = unicode
 else:
     text_type = str

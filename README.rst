@@ -52,3 +52,10 @@ This project is still under development. Feedback and suggestions are very welco
 Authors
 -------
 The requery was original created by Ezequiel Bertti `@ebertti <https://github.com/ebertti>`_ and João Leite `@joaoleite <https://github.com/joaoleite>`_ in September 2012.
+
+Changelog
+---------
+
+* 0.3.5.1
+
+  * Working on Python 3 - `@tomatohater <https://github.com/tomatohater>`_

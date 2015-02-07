@@ -7,7 +7,7 @@ setup(
     url='http://github.com/ebertti/requery/',
     author='Ezequiel Bertti',
     author_email='ebertti@gmail.com',
-    install_requires=['django>=1.7', 'Pygments>=1.6'],
+    install_requires=['django>=1.7', 'Pygments>=1.6', 'six>=1.7',],
     packages=['requery'],
     include_package_data=True,
     license='MIT License',

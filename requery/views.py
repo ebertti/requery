@@ -1,6 +1,7 @@
 # coding=utf-8
 # Create your views here.
 import json
+import sys
 from django.conf import settings
 from django.contrib.admin.models import LogEntry
 from django.contrib.contenttypes.models import ContentType
@@ -8,17 +9,25 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.defaultfilters import safe
-from django.utils.encoding import force_unicode
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
 from requery.forms import QueryForm
 from requery.models import Query
 from django.db import connections
 
+# Python 2/3 compatibility
+if sys.version_info[0] < 3:
+    text_type = unicode
+else:
+    text_type = str
 
 def form_query(request, query_id):
     query = Query.objects.get(id=query_id)
     form = QueryForm(initial={'text':query.text}, query=query)
     context = {
-        'title': 'Run Query %s on database %s' % (force_unicode(query.name), query.database),
+        'title': 'Run Query %s on database %s' % (force_text(query.name), query.database),
         'form': form,
         'object_id': query_id,
         'original': query,
@@ -45,7 +54,7 @@ def run_query(request, query_id):
         cursor.execute(text, params)
         lines = []
         for line in cursor.fetchall():
-            lines.append([unicode(tup) for tup in line])
+            lines.append([text_type(tup) for tup in line])
 
         if lines :
             response = {
@@ -62,7 +71,7 @@ def run_query(request, query_id):
         LogEntry(user=request.user,
                  content_type=ContentType.objects.get_for_model(query),
                  object_id=query.id,
-                 object_repr=force_unicode(query),
+                 object_repr=force_text(query),
                  change_message="run with %s" % ', '.join(['%s:%s' % (key, value)
                                                  for key, value in request.POST.items()
                                                  if key != 'csrfmiddlewaretoken']),

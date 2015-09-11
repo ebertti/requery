@@ -1,6 +1,10 @@
 requery
 =======
 
+.. image:: https://badges.gitter.im/Join%20Chat.svg
+   :alt: Join the chat at https://gitter.im/ebertti/requery
+   :target: https://gitter.im/ebertti/requery?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
 Simple way to store and use queries in database for use of DBA in Django Admin
 
 .. image:: https://d2weczhvl823v0.cloudfront.net/ebertti/requery/trend.png
